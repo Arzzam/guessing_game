@@ -6,7 +6,7 @@ fn main() {
     println!("Guess the Number!");
 
     loop {
-        println!("Please input your guess.");
+        println!("Please input your guess between 1 to 100.");
 
         // rand::rng() is used to generate a random number between 1 and 100
         let secret_number = rand::rng().random_range(1..101);
@@ -28,7 +28,13 @@ fn main() {
         // match is used to handle errors and return a value based on the condition of the variable
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => match guess.trim() == "quit" {
+                true => {
+                    println!("You quit the game!");
+                    break;
+                }
+                false => continue,
+            },
         };
 
         // {} is a placeholder for the value of the variable
