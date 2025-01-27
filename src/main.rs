@@ -1,3 +1,4 @@
+use colored::*;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
@@ -5,11 +6,12 @@ use std::io;
 fn main() {
     println!("Guess the Number!");
 
+    let secret_number = rand::rng().random_range(1..101);
+
     loop {
         println!("Please input your guess between 1 to 100.");
 
         // rand::rng() is used to generate a random number between 1 and 100
-        let secret_number = rand::rng().random_range(1..101);
 
         println!("The secret number is: {}", secret_number);
 
@@ -44,10 +46,10 @@ fn main() {
 
         // match is used to handle multiple conditions
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
+            Ordering::Less => println!("{}", "Too small!".red()),
+            Ordering::Greater => println!("{}", "Too big!".red()),
             Ordering::Equal => {
-                println!("You win!");
+                println!("{}", "You win!".green());
                 break;
             }
         }
